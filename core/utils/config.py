@@ -1,6 +1,7 @@
+import logging
 from os import getenv
-from dotenv import load_dotenv
 
+from dotenv import load_dotenv
 
 load_dotenv()
 BOT_TOKEN = getenv("BOT_TOKEN")
@@ -12,5 +13,10 @@ WEB_SERVER_HOST = getenv("WEB_SERVER_HOST")
 WEB_SERVER_PORT = int(getenv("WEB_SERVER_PORT"))
 TEST_CHAT_ID = getenv("TEST_CHAT_ID")
 ADMIN_ID = getenv("ADMIN_ID")
-ADMIN_IDS = list(map(int, ADMIN_ID.split(", ")))
 OWM_API = getenv("OWM_API")
+
+# Create a list of ADMIN_IDS from a .env file
+if ADMIN_ID:
+    ADMIN_IDS = list(map(int, ADMIN_ID.split(", ")))
+else:
+    logging.exception("Check your .env file. There is something wrong with ADMIN_ID")
