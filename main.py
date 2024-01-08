@@ -11,6 +11,7 @@ from core.handlers.hello import router as hello_router
 from core.handlers.weather import router as weather_router
 from core.handlers.msg_echo import msg_echo_router, msg_echo_pin_router
 from core.handlers.vahta import router as vahta_router
+from core.handlers.gumorezka import router as gumorezka_router
 from core.utils.commands import set_commands
 from core.utils.config import (
     BOT_TOKEN,
@@ -48,6 +49,7 @@ def main() -> None:
         msg_echo_router,
         msg_echo_pin_router,
         vahta_router,
+        gumorezka_router,
     )
 
     # Register startup hook to initialize webhook
