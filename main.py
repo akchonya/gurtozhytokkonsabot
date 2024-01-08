@@ -4,6 +4,7 @@ import asyncio
 from aiohttp import web
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from core.handlers.start import router as start_router
 from core.handlers.basic_link import router as basic_router
@@ -12,7 +13,9 @@ from core.handlers.weather import router as weather_router
 from core.handlers.msg_echo import msg_echo_router, msg_echo_pin_router
 from core.handlers.vahta import router as vahta_router
 from core.handlers.gumorezka import router as gumorezka_router
+from core.handlers.alert import router as alert_router
 from core.utils.commands import set_commands
+from core.middlewares.apscheduler_mw import SchedulerMiddleware
 from core.utils.config import (
     BOT_TOKEN,
     WEB_SERVER_HOST,
@@ -39,8 +42,9 @@ async def on_startup(bot: Bot) -> None:
 
 def main() -> None:
     # Dispatcher is a root router
-    dp = Dispatcher(alert_status="no_alert")
-    # ... and all other routers should be attached to Dispatcher
+    dp = Dispatcher()
+    scheduler = AsyncIOScheduler()
+    dp.update.middleware(SchedulerMiddleware(scheduler))
     dp.include_routers(
         start_router,
         basic_router,
@@ -50,6 +54,7 @@ def main() -> None:
         msg_echo_pin_router,
         vahta_router,
         gumorezka_router,
+        alert_router,
     )
 
     # Register startup hook to initialize webhook
