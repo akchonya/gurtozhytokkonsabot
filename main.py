@@ -69,7 +69,9 @@ def main() -> None:
     # aiogram has few implementations for different cases of usage
     # In this example we use SimpleRequestHandler which is designed to handle simple cases
     webhook_requests_handler = SimpleRequestHandler(
-        dispatcher=dp, bot=bot, secret_token=WEBHOOK_SECRET
+        dispatcher=dp,
+        bot=bot,
+        secret_token=WEBHOOK_SECRET,
     )
     # Register webhook handler on application
     webhook_requests_handler.register(app, path=WEBHOOK_PATH)

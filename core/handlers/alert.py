@@ -1,21 +1,27 @@
 """
 alert 
 """
+import datetime
+import logging
 
-
-from aiogram import Bot, Router, Dispatcher
+from aiogram import Bot, Router
 from aiogram.filters import Command
 from aiogram.types import Message, ReplyKeyboardRemove
 from alerts_in_ua import AsyncClient as AsyncAlertsClient
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from core.utils.config import ALERTS_TOKEN
 from core.filters.basic import isAdmin
+from core.utils.config import ALERTS_TOKEN, DORM_CHAT_ID
 
 router = Router()
+lviv_status = "initial"
+msg = None
 
 
-async def alert(bot: Bot, alert_status: str):
+async def alert(bot: Bot):
+    global lviv_status
+    global msg
+
     alerts_client = AsyncAlertsClient(token=ALERTS_TOKEN)
     active_alerts = await alerts_client.get_air_raid_alert_statuses_by_oblast()
     # Get the Lviv status
@@ -26,21 +32,23 @@ async def alert(bot: Bot, alert_status: str):
             if alert.location_title == "Львівська область"
         ][0]
     )[:-18]
-    print(lviv)
-    print(alert_status)
+    logging.info(lviv)
+    if lviv_status == lviv:
+        return
 
+    if lviv == "alert":
+        msg = await bot.send_message(DORM_CHAT_ID, "тривога")
 
-@router.message(Command("test"))
-async def test(
-    message: Message, bot: Bot, scheduler: AsyncIOScheduler, dispatcher: Dispatcher
-):
-    # TODO
-    pass
+    elif msg is not None:
+        await bot.send_message(DORM_CHAT_ID, "✅ ВІДБІЙ ТРИВОГИ")
+        await bot.unpin_chat_message(DORM_CHAT_ID, msg.message_id)
 
 
 @router.message(Command("start_api"))
 async def check_alert_handler(
-    message: Message, bot: Bot, scheduler: AsyncIOScheduler, alert_status: str
+    message: Message,
+    bot: Bot,
+    scheduler: AsyncIOScheduler,
 ):
     jobs = scheduler.get_jobs()
     if not len(jobs):
@@ -50,6 +58,7 @@ async def check_alert_handler(
             name="api_parser",
             id="1",
             seconds=15,
+            start_date=datetime.datetime.now() + datetime.timedelta(0, 3),
             kwargs={"bot": bot},
         )  # Set the interval as needed
         scheduler.start()
