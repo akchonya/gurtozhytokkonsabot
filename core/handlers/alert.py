@@ -38,6 +38,7 @@ async def alert(bot: Bot):
 
     if lviv == "alert":
         msg = await bot.send_message(DORM_CHAT_ID, "тривога")
+        await bot.pin_chat_message(DORM_CHAT_ID, msg.message_id, True)
 
     elif msg is not None:
         await bot.send_message(DORM_CHAT_ID, "✅ ВІДБІЙ ТРИВОГИ")
