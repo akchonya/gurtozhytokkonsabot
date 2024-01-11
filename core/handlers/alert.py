@@ -90,4 +90,5 @@ async def check_jobs_handler(message: Message, scheduler: AsyncIOScheduler):
 @router.message(Command("stop_api"), isAdmin())
 async def stop_api_handler(message: Message, scheduler: AsyncIOScheduler):
     scheduler.remove_all_jobs()
+    scheduler.shutdown()
     await message.answer("Scheduler stopped.", reply_markup=ReplyKeyboardRemove())
