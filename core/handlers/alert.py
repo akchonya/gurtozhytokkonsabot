@@ -38,7 +38,7 @@ async def alert(bot: Bot):
 
     lviv_status = lviv
 
-    if lviv == "alert":
+    if lviv == "active":
         msg = await bot.send_message(DORM_CHAT_ID, "тривога")
         await bot.pin_chat_message(DORM_CHAT_ID, msg.message_id, True)
 
