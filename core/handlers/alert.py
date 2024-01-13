@@ -35,7 +35,8 @@ async def alert(bot: Bot):
     logging.info(lviv)
     if lviv_status == lviv:
         logging.info("status hasn't changed see ya in 15 seconds")
-        return
+
+    lviv_status = lviv
 
     if lviv == "alert":
         msg = await bot.send_message(DORM_CHAT_ID, "тривога")
