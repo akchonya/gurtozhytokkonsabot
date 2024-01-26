@@ -61,7 +61,7 @@ async def check_alert_handler(
             "interval",
             name="api_parser",
             id="1",
-            seconds=15,
+            seconds=30,
             start_date=datetime.datetime.now() + datetime.timedelta(0, 3),
             kwargs={"bot": bot},
         )  # Set the interval as needed
