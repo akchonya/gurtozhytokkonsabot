@@ -14,6 +14,7 @@ from core.handlers.msg_echo import msg_echo_router, msg_echo_pin_router
 from core.handlers.vahta import router as vahta_router
 from core.handlers.gumoreska import router as gumoreska_router
 from core.handlers.alert import router as alert_router
+from core.handlers.stickers import router as stickers_router
 from core.utils.commands import set_commands
 from core.middlewares.apscheduler_mw import SchedulerMiddleware
 from core.utils.config import (
