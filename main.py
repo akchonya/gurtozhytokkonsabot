@@ -11,7 +11,6 @@ from core.handlers.basic_link import router as basic_router
 from core.handlers.hello import router as hello_router
 from core.handlers.weather import router as weather_router
 from core.handlers.msg_echo import msg_echo_router, msg_echo_pin_router
-from core.handlers.vahta import router as vahta_router
 from core.handlers.gumoreska import router as gumoreska_router
 from core.handlers.alert import router as alert_router
 from core.handlers.stickers import router as stickers_router
@@ -53,7 +52,6 @@ def main() -> None:
         weather_router,
         msg_echo_router,
         msg_echo_pin_router,
-        vahta_router,
         gumoreska_router,
         alert_router,
     )
