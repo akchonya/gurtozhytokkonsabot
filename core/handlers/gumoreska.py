@@ -3,8 +3,6 @@
 """
 
 
-from random import randint
-
 from aiogram import Router
 from datetime import datetime
 from aiogram.filters import Command
@@ -13,7 +11,7 @@ from aiogram.types import Message, ReplyKeyboardRemove
 router = Router()
 
 
-last_used = {"gumoreska_id": 0, "date": 0}
+last_used = {"id": 0}
 
 gumoresky = (
     "Мля.. Марічку зміняв, вона мені о шостій ранку Кобзаря врізала напамʼять, я її на телефон, ска, зняв, цілий день, ЦІЛИЙ ДЕНЬ! передивлявся, сльози течуть, родичам в Канаду, в Німеччину відправив, ска!.. плачуть! (с) Гріша",
@@ -39,15 +37,15 @@ gumoresky = (
 
 async def update_gumoreska():
     global last_used
-    today = datetime.now().date()
-    last_used = last_used["date"]
+    today = datetime.now().date().day
+    id = last_used["id"]
 
-    if today != last_used:
-        last_used["gumoreska_id"] = (last_used["gumoreska_id"] + 1) % 18
-        last_used["date"] = today
+    if today != id:
+        last_used["id"] = today % 18
 
 
 @router.message(Command("gumoreska"))
 async def gumoreska_handler(message: Message):
-    text = f"гумореска дня!!\n\n{gumoresky[last_used['gumoreska_id']]}"
-    await message.answer(text)
+    await update_gumoreska()
+    text = f"гумореска дня!!\n\n{gumoresky[last_used['id']]}"
+    await message.answer(text, reply_markup=ReplyKeyboardRemove())
