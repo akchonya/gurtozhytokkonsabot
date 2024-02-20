@@ -6,7 +6,7 @@ import logging
 
 from aiogram import Bot, Router
 from aiogram.filters import Command
-from aiogram.types import Message, ReplyKeyboardRemove
+from aiogram.types import Message, ReplyKeyboardRemove, FSInputFile
 from alerts_in_ua import AsyncClient as AsyncAlertsClient
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -39,10 +39,14 @@ async def alert(bot: Bot):
     lviv_status = lviv
 
     if lviv == "active":
-        msg = await bot.send_message(DORM_CHAT_ID, "тривога")
+        video = FSInputFile("media/alarm.mp4")
+        await bot.send_video(DORM_CHAT_ID, video)
+        msg = bot.send_message(DORM_CHAT_ID, "🚨 ПОВІТРЯНА ТРИВОГА!!")
         await bot.pin_chat_message(DORM_CHAT_ID, msg.message_id, True)
 
     elif msg is not None:
+        video = FSInputFile("media/no_alarm.mp4")
+        await bot.send_video(DORM_CHAT_ID, video)
         await bot.send_message(DORM_CHAT_ID, "✅ ВІДБІЙ ТРИВОГИ")
         await bot.unpin_chat_message(DORM_CHAT_ID, msg.message_id)
 
