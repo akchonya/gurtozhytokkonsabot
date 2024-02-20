@@ -48,4 +48,5 @@ async def update_gumoreska():
 async def gumoreska_handler(message: Message):
     await update_gumoreska()
     text = f"гумореска дня!!\n\n{gumoresky[last_used['id']]}"
+    print(message.chat.id)
     await message.answer(text, reply_markup=ReplyKeyboardRemove())
