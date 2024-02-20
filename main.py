@@ -54,6 +54,7 @@ def main() -> None:
         msg_echo_pin_router,
         gumoreska_router,
         alert_router,
+        stickers_router,
     )
 
     # Register startup hook to initialize webhook
