@@ -49,5 +49,5 @@ async def update_gumoreska():
 
 @router.message(Command("gumoreska"))
 async def gumoreska_handler(message: Message):
-    text = f"гумореска дня!!\n\n{gumoresky[last_used["gumoreska_id"]]}"
+    text = f"гумореска дня!!\n\n{gumoresky[last_used['gumoreska_id']]}"
     await message.answer(text)
