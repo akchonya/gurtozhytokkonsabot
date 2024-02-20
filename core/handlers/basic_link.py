@@ -14,13 +14,14 @@ router = Router()
 @router.message(Command("faq"))
 async def faq_handler(message: types.Message):
     await message.answer(
-        "🧾 https://telegra.ph/stattya-gurt-11-08", reply_markup=ReplyKeyboardRemove()
+        "📝 https://telegra.ph/stattya-gurt-11-08", reply_markup=ReplyKeyboardRemove()
     )
 
 
 @router.message(Command("rekvizyty"))
 async def rekvizyty_handler(message: types.Message):
-    await message.answer("реквізити тут", reply_markup=ReplyKeyboardRemove())
+    text = "<b>Реквізити для оплати за навчання:</b>\n\nЛНМА імені М.В.Лисенка\np/p UA888201720313281004201001387\n\nДКСУ у м. Київ\n\nЄДРПОУ 02214225\n\nПризначення платежу: за навчания студента ПІП (Обовʼязково вказувати ПІП студента)\n\n\n<b>Оплата за проживання в гуртожитку:</b>\n\nЛНМА імені М.В.Лисенка\np/p UA898201720313251004202001387\n\nДКСУ у м. Київ\n\nЄДРПОУ 02214225\n\nПризначення платежу: за гуртожиток студента ПІП (Обовʼязково вказувати ПІП студента)"
+    await message.answer(text, reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(Command("laundry"))
