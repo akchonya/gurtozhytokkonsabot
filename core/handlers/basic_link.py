@@ -16,7 +16,6 @@ async def faq_handler(message: types.Message):
     await message.answer(
         "📝 https://telegra.ph/stattya-gurt-11-08",
         reply_markup=ReplyKeyboardRemove(),
-        disable_web_page_preview=True,
     )
 
 
@@ -29,7 +28,9 @@ async def rekvizyty_handler(message: types.Message):
 @router.message(Command("laundry"))
 async def laundry_handler(message: types.Message):
     await message.answer(
-        "🧺 https://chudovend.bilantek.com/?tcn=102", reply_markup=ReplyKeyboardRemove()
+        "🧺 https://chudovend.bilantek.com/?tcn=102",
+        reply_markup=ReplyKeyboardRemove(),
+        disable_web_page_preview=True,
     )
 
 
