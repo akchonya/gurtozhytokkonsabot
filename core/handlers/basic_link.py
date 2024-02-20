@@ -14,7 +14,9 @@ router = Router()
 @router.message(Command("faq"))
 async def faq_handler(message: types.Message):
     await message.answer(
-        "📝 https://telegra.ph/stattya-gurt-11-08", reply_markup=ReplyKeyboardRemove()
+        "📝 https://telegra.ph/stattya-gurt-11-08",
+        reply_markup=ReplyKeyboardRemove(),
+        disable_web_page_preview=True,
     )
 
 
