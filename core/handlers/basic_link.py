@@ -6,7 +6,7 @@
 from aiogram import types, Router
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardRemove
-
+from core.utils.soup import parse_page
 
 router = Router()
 
@@ -28,4 +28,12 @@ async def rekvizyty_handler(message: types.Message):
 async def laundry_handler(message: types.Message):
     await message.answer(
         "🧺 https://chudovend.bilantek.com/?tcn=102", reply_markup=ReplyKeyboardRemove()
+    )
+
+
+@router.message(Command("svyato"))
+async def svyaro_handler(message: types.Message):
+    svyato = await parse_page("https://daytoday.ua/sogodni/")
+    await message.answer(
+        f"🍾 <b>свята сьогодні:</b>\n{svyato}", reply_markup=ReplyKeyboardRemove()
     )
