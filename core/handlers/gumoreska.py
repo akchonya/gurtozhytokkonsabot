@@ -6,10 +6,14 @@
 from random import randint
 
 from aiogram import Router
+from datetime import datetime
 from aiogram.filters import Command
 from aiogram.types import Message, ReplyKeyboardRemove
 
 router = Router()
+
+
+last_used = {"gumoreska_id": 0, "date": 0}
 
 gumoresky = (
     "Мля.. Марічку зміняв, вона мені о шостій ранку Кобзаря врізала напамʼять, я її на телефон, ска, зняв, цілий день, ЦІЛИЙ ДЕНЬ! передивлявся, сльози течуть, родичам в Канаду, в Німеччину відправив, ска!.. плачуть! (с) Гріша",
@@ -33,9 +37,17 @@ gumoresky = (
 )
 
 
+async def update_gumoreska():
+    global last_used
+    today = datetime.now().date()
+    last_used = last_used["date"]
+
+    if today != last_used:
+        last_used["gumoreska_id"] = (last_used["gumoreska_id"] + 1) % 18
+        last_used["date"] = today
+
+
 @router.message(Command("gumoreska"))
 async def gumoreska_handler(message: Message):
-    text = "гумореска дня!!"
-    await message.answer(
-        gumoresky[randint(0, len(gumoresky) - 1)], reply_markup=ReplyKeyboardRemove()
-    )
+    text = f"гумореска дня!!\n\n{gumoresky[last_used["gumoreska_id"]]}"
+    await message.answer(text)
