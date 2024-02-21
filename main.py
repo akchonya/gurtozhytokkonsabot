@@ -52,7 +52,7 @@ def main() -> None:
         weather_router,
         msg_echo_router,
         msg_echo_pin_router,
-        gumoreska_router,
+        # gumoreska_router,
         alert_router,
         stickers_router,
     )

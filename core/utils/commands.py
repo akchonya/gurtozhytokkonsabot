@@ -8,7 +8,7 @@ user_commands = [
     BotCommand(command="weather_today", description="прогноз на сьогодні"),
     BotCommand(command="rekvizyty", description="реквізити на оплату за гурт"),
     BotCommand(command="laundry", description="сайт з пралками"),
-    BotCommand(command="gumoreska", description="обрані гуморески"),
+    # BotCommand(command="gumoreska", description="обрані гуморески"),
     BotCommand(command="svyato", description="свята сьогодні"),
     BotCommand(command="rusoriz", description="ру-со-різ"),
 ]
