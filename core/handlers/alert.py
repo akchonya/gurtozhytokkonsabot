@@ -41,7 +41,7 @@ async def alert(bot: Bot):
     if lviv == "active":
         video = FSInputFile("media/alarm.mp4")
         await bot.send_video(DORM_CHAT_ID, video)
-        msg = bot.send_message(DORM_CHAT_ID, "🚨 ПОВІТРЯНА ТРИВОГА!!")
+        msg = await bot.send_message(DORM_CHAT_ID, "🚨 ПОВІТРЯНА ТРИВОГА!!")
         await bot.pin_chat_message(DORM_CHAT_ID, msg.message_id, True)
 
     elif msg is not None:
